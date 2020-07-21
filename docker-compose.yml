@@ -1,0 +1,26 @@
+version: '3.7'
+
+services:
+  web-app:
+    restart: on-failure
+    container_name: web-app
+    build:
+      context: .
+    volumes:
+      - static_volume:/home/app/web/project/static
+      - ./:/usr/src/app:cached
+    depends_on:
+      - mongo-db
+    ports:
+      - 8080:3000
+  mongo-db:
+    image: mvertes/alpine-mongo
+    ports:
+      - 27017:27017
+    volumes:
+      - mongo_data:/var/lib/mongo/data/
+    container_name: mongo-db
+
+volumes:
+  static_volume:
+  mongo_data:
