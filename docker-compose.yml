@@ -1,25 +1,26 @@
 version: '3.7'
 
 services:
-  web-app:
+  movies-api:
     restart: on-failure
-    container_name: web-app
+    container_name: movies-api
     build:
       context: .
+    command: python manage.py runserver 0.0.0.0:3000
     volumes:
       - static_volume:/home/app/web/project/static
       - ./:/usr/src/app:cached
     depends_on:
-      - mongo-db
+      - mongo
     ports:
       - 8080:3000
-  mongo-db:
+  mongo:
     image: mvertes/alpine-mongo
     ports:
-      - 27017:27017
+      - 27099:27017
     volumes:
       - mongo_data:/var/lib/mongo/data/
-    container_name: mongo-db
+    container_name: mongo
 
 volumes:
   static_volume:
