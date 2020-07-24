@@ -39,6 +39,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'movies',
+    'django_celery_beat'
 ]
 
 MIDDLEWARE = [
@@ -112,8 +114,16 @@ USE_L10N = True
 
 USE_TZ = True
 
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
+MOVIES_API_ENDPOINT = 'https://ghibliapi.herokuapp.com/'
+
+# CELERY STUFF
+BROKER_URL = 'redis://redis-broker:6379'
+CELERY_RESULT_BACKEND = 'redis://redis-broker:6379'
+CELERY_ACCEPT_CONTENT = ['application/json']
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_RESULT_SERIALIZER = 'json'
+CELERY_TIMEZONE = 'Europe/Berlin'

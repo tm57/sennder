@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<ul>
+    {% for movie in movies %}
+    <li> <strong>Movie Name:</strong> {{ movie.title }}</li>
+    <li>
+        <table>
+            <tr>
+                <th>Characters:</th>
+            </tr>
+
+            {% for character in movie.character_set.all %}
+            <tr>
+                <td> {{ character.name }} </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </li>
+     <hr>
+    {% endfor %}
+
+</ul>
+</body>
+</html>

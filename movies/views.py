@@ -1,8 +1,21 @@
-from django.http import HttpResponse
 from django.shortcuts import render
+
+from movies.services.moviesService import MoviesService
 
 
 def movies(request):
-    response = "Here is a list of mivies and the people in them"
-    # return render(request, 'polls/index.html', context)
-    return HttpResponse(response)
+    movies_service = MoviesService()
+
+
+    m = MoviesService()
+    films = m.download_resource('films')
+    m.save_movies(films)
+
+    characters = m.download_resource('people')
+    print(characters)
+    m.associate_characters_to_movies(characters)
+    context = {
+        'movies': movies_service.get_saved_movies()
+    }
+
+    return render(request, 'movies/index.html', context)

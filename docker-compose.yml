@@ -10,18 +10,13 @@ services:
     volumes:
       - static_volume:/home/app/web/project/static
       - ./:/usr/src/app:cached
-    depends_on:
-      - mongo
     ports:
       - 8080:3000
-  mongo:
-    image: mvertes/alpine-mongo
+  redis:
+    image: redis:alpine
+    command: redis-server
     ports:
-      - 27099:27017
-    volumes:
-      - mongo_data:/var/lib/mongo/data/
-    container_name: mongo
-
+      - 6379:6379
+    container_name: redis-broker
 volumes:
   static_volume:
-  mongo_data:
